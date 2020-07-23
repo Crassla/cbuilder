@@ -61,6 +61,7 @@ router.post('/signup', async (req, res) => {
             id: suser.id
             }
         };
+        res.render('teachers/index', {successMessage:'Signup Successful'})
     } catch (err) {
         console.log(err.message);
         res.render('teachers/index', {errorMessage:'Error in Saving'});
