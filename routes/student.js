@@ -20,7 +20,7 @@ router.get('/me/:token/:name', auth, async (req, res) => {
     try {
       res.render('students/index', {username: req.params.name} );
     } catch (e) {
-      res.render('students/index',{ errorMessage: "Error in Fetching user" });
+      res.render('students/login',{ errorMessage: "Error in Fetching user" });
     }
   });
 
@@ -32,8 +32,8 @@ router.post( '/login', async (req, res) => {
           errors: errors.array()
         });
       }
-      var name = req.body.name
-      name = name.charAt(0).toUpperCase() + name.slice(1)
+      const username = req.body.name
+      name = username.charAt(0).toUpperCase() + username.slice(1)
       const email = req.body.email
       const password = req.body.password
 
@@ -42,14 +42,23 @@ router.post( '/login', async (req, res) => {
           email
         });
         if (!user)
-          return res.render('students/index',{
-            errorMessage: 'User Not Exist'
+          return res.render('students/login',{
+            errorMessage: 'Error: Email Does Not Exist'
+          });
+        
+        let usernames = await User.findOne({
+            username
+        })
+
+        if (!usernames)
+          return res.render('students/login',{
+            errorMessage: 'Error: User Does Not Exist'
           });
   
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch)
-          return res.render('teachers/index', {
-            errorMessage: 'Incorrect Password !'
+          return res.render('students/login', {
+            errorMessage: 'Error: Incorrect Password !'
           });
   
         const payload = {
@@ -62,7 +71,7 @@ router.post( '/login', async (req, res) => {
           payload,
           'randomString',
           {
-            expiresIn: 100
+            expiresIn: 10
           },
           (err, token) => {
             if (err) throw err;
@@ -73,8 +82,8 @@ router.post( '/login', async (req, res) => {
         );
       } catch (e) {
         console.error(e);
-        res.render('students/index', {
-          errorMessage: 'Server Error'
+        res.redirect('/', {
+          errorMessage: 'Error: Server Error'
         });
       }
     }
