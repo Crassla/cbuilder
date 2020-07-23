@@ -6,10 +6,9 @@
     <title>Course Builder</title>
 </head>
 <body>
-    Before
-    <br>
+    <%- include('../partials/header.ejs') %> 
     <%- body %> 
     <br>
-    After
+    <h1 style="color: red"><b><%- include('../partials/errorMessage.ejs') %></b></h1>
 </body>
 </html>
