@@ -27,68 +27,69 @@ router.get('/:token/:name', auth, async (req, res) => {
   });
 
 router.post('/login', async (req, res) => {
-    const errors = validationResult(req);
+    res.render('teachers/index')
+    // const errors = validationResult(req);
 
-    if (!errors.isEmpty()) {
-      return res.status(400).json({
-        errors: errors.array()
-      });
-    }
-    const username = req.body.username
-    name = username.charAt(0).toUpperCase() + username.slice(1)
-    const email = req.body.email
-    const password = req.body.password
+    // if (!errors.isEmpty()) {
+    //   return res.status(400).json({
+    //     errors: errors.array()
+    //   });
+    // }
+    // const username = req.body.username
+    // name = username.charAt(0).toUpperCase() + username.slice(1)
+    // const email = req.body.email
+    // const password = req.body.password
 
-    try {
-      let user = await Tuser.findOne({
-        email
-      });
+    // try {
+    //   let user = await Tuser.findOne({
+    //     email
+    //   });
 
-      if (!user)
-        return res.render('teachers/login',{
-          errorMessage: 'Error: Email Does Not Exist'
-        });
+    //   if (!user)
+    //     return res.render('teachers/login',{
+    //       errorMessage: 'Error: Email Does Not Exist'
+    //     });
       
-      let usernames = await Tuser.findOne({
-          username
-      })
+    //   let usernames = await Tuser.findOne({
+    //       username
+    //   })
 
-      if (!usernames)
-        return res.render('teachers/login',{
-          errorMessage: 'Error: User Does Not Exist'
-        });
+    //   if (!usernames)
+    //     return res.render('teachers/login',{
+    //       errorMessage: 'Error: User Does Not Exist'
+    //     });
 
-      const isMatch = await bcrypt.compare(password, user.password);
-      if (!isMatch)
-        return res.render('teachers/login', {
-          errorMessage: 'Error: Incorrect Password !'
-        });
+    //   const isMatch = await bcrypt.compare(password, user.password);
+    //   if (!isMatch)
+    //     return res.render('teachers/login', {
+    //       errorMessage: 'Error: Incorrect Password !'
+    //     });
 
-      const payload = {
-        user: {
-          id: user.id
-        }
-      };
+    //   const payload = {
+    //     user: {
+    //       id: user.id
+    //     }
+    //   };
 
-      jwt.sign(
-        payload,
-        'randomString',
-        {
-          expiresIn: 100
-        },
-        (err, token) => {
-          if (err) throw err;
-          var url = token + '/' + name
-          res.redirect(url)
+    //   jwt.sign(
+    //     payload,
+    //     'randomString',
+    //     {
+    //       expiresIn: 100
+    //     },
+    //     (err, token) => {
+    //       if (err) throw err;
+    //       var url = token + '/' + name
+    //       res.redirect(url)
 
-        }
-      );
-    } catch (e) {
-      console.error(e);
-      res.redirect('/', {
-        errorMessage: 'Error: Server Error'
-      });
-    }
+    //     }
+    //   );
+    // } catch (e) {
+    //   console.error(e);
+    //   res.redirect('/', {
+    //     errorMessage: 'Error: Server Error'
+    //   });
+    // }
 })
 
 router.post('/signup', async (req, res) => {
