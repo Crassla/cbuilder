@@ -3,15 +3,18 @@ const mongoose = require('mongoose')
 const tuserSchema = new mongoose.Schema({
     username: {
         type: String,
-        required: true
+        required: true,
+        unqiue: true
       },
       email: {
         type: String,
-        required: true
+        required: true,
+        unqiue: true
       },
       password: {
         type: String,
-        required: true
+        required: true,
+        unqiue: true
       },
       createdAt: {
         type: Date,
@@ -19,4 +22,4 @@ const tuserSchema = new mongoose.Schema({
       }
 });
 
-module.exports = mongoose.model('User', tuserSchema)
+module.exports = User = mongoose.model('Tusers', tuserSchema)

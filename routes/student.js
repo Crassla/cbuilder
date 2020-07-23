@@ -16,6 +16,10 @@ router.get('/', (req, res) => {
     res.render('students/login')
 })
 
+router.get('/me', (req, res) => {
+    res.redirect('/students/me/123/123')
+})
+
 router.get('/me/:token/:name', auth, async (req, res) => {
     try {
       res.render('students/index', {username: req.params.name} );
@@ -71,7 +75,7 @@ router.post( '/login', async (req, res) => {
           payload,
           'randomString',
           {
-            expiresIn: 10
+            expiresIn: 100
           },
           (err, token) => {
             if (err) throw err;

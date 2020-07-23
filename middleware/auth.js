@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 
 module.exports = function(req, res, next) {
   const token = req.params.token;
-  if (!token) return res.render('students/login', {
+  if (!token) return res.render('index', {
     errorMessage: 'Error: Invalid User!'
   });
 
@@ -12,6 +12,6 @@ module.exports = function(req, res, next) {
     next();
   } catch (e) {
     console.error(e);
-    res.render('students/login',{  errorMessage: "User Invalid" });
+    res.render('index',{  errorMessage: "User Invalid" });
   }
 };
