@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 const bodyParser = require('body-parser')
 const User = require('../models/suser')
 const auth = require('../middleware/auth')
+const As = require('../models/as');
 
 
 router.get('/login', (req, res) => {
@@ -21,8 +22,12 @@ router.get('/me', (req, res) => {
 })
 
 router.get('/me/:token/:name', auth, async (req, res) => {
+  const as = await As.find({})
     try {
-      res.render('students/index', {username: req.params.name} );
+      res.render('students/index', {
+        username: req.params.name,
+        as: as
+      });
     } catch (e) {
       res.render('students/login',{ errorMessage: "Error in Fetching user" });
     }

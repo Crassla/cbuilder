@@ -8,6 +8,8 @@ const bodyParser = require('body-parser')
 
 const Suser = require('../models/suser');
 const Tuser = require('../models/tuser')
+const As = require('../models/as');
+const { route } = require('./student');
 
 
 router.get('/login', (req, res) => {
@@ -19,14 +21,20 @@ router.get('/', (req, res) => {
 })
 
 router.get('/:token/:name', auth, async (req, res) => {
+  const as = await As.find({})
     try {
-      res.render('teachers/index', {username: req.params.name} );
+      res.render('teachers/index', {
+        username: req.params.name,
+        as: as
+      
+      } );
     } catch (e) {
       res.render('teachers/login',{ errorMessage: "Error in Fetching user" });
     }
   });
 
 router.post('/login', async (req, res) => {
+  const as = await As.find({})
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
@@ -46,7 +54,8 @@ router.post('/login', async (req, res) => {
 
       if (!user)
         return res.render('teachers/login',{
-          errorMessage: 'Error: Email Does Not Exist'
+          errorMessage: 'Error: Email Does Not Exist',
+
         });
       
       let usernames = await Tuser.findOne({
@@ -92,6 +101,7 @@ router.post('/login', async (req, res) => {
 })
 
 router.post('/signup', async (req, res) => {
+  const as = await As.find({})
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400)({
@@ -108,13 +118,15 @@ router.post('/signup', async (req, res) => {
             email
         });
 
-        if (suser) return res.render('teachers/index', {errorMessage:'Error: Email Exists'});
+        if (suser) return res.render('teachers/index', {errorMessage:'Error: Email Exists',
+        as: as});
 
         let userss = await Suser.findOne({
             username
         });
 
-        if (userss) return res.render('teachers/index', {errorMessage:'Error: User Exists'});
+        if (userss) return res.render('teachers/index', {errorMessage:'Error: User Exists',
+        as: as});
 
         suser = new Suser({
             username,
@@ -132,14 +144,17 @@ router.post('/signup', async (req, res) => {
             id: suser.id
             }
         };
-        res.render('teachers/index', {successMessage:'Signup Successful'})
+        res.render('teachers/index', {successMessage:'Signup Successful',
+        as: as})
     } catch (err) {
         console.log(err.message);
-        res.render('teachers/index', {errorMessage:'Error in Saving'});
+        res.render('teachers/index', {errorMessage:'Error in Saving',
+        as: as});
     }
 });
 
 router.post('/tsignup', async (req, res) => {
+  const as = await As.find({})
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400)({
@@ -156,13 +171,15 @@ router.post('/tsignup', async (req, res) => {
             email
         });
 
-        if (tuser) return res.render('teachers/index', {errorMessage:'Error: Email Exists'});
+        if (tuser) return res.render('teachers/index', {errorMessage:'Error: Email Exists',
+        as: as});
 
         let tuserss = await Tuser.findOne({
             username
         });
 
-        if (tuserss) return res.render('teachers/index', {errorMessage:'Error: User Exists'});
+        if (tuserss) return res.render('teachers/index', {errorMessage:'Error: User Exists',
+        as: as});
 
         tuser = new Tuser({
             username,
@@ -180,12 +197,54 @@ router.post('/tsignup', async (req, res) => {
             id: tuser.id
             }
         };
-        res.render('teachers/index', {successMessage:'Signup Successful'})
+        res.render('teachers/index', {successMessage:'Signup Successful',
+        as: as})
     } catch (err) {
         console.log(err.message);
-        res.render('teachers/index', {errorMessage:'Error in Saving'});
+        res.render('teachers/index', {errorMessage:'Error in Saving',
+        as: as});
     }
 });
+
+router.post('/asadd', async (req, res) => { 
+  const as = await As.find({})
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+      return res.status(400)({
+          errors: errors.array()
+      });
+  }
+
+    const name = req.body.name
+    const description = req.body.description
+    const credits = req.body.credits
+    const weeks = req.body.weeks
+
+    try {
+      let asname = await As.findOne({
+        name
+      })
+
+      if (asname) return res.render('teachers/index', {errorMessage:'Error: AS Exists',
+      as: as});
+
+      asname = new As({
+        name,
+        description,
+        credits,
+        weeks
+      })
+
+      await asname.save();
+      res.render('teachers/index', {successMessage:'AS Successfully Added',
+      as: as})
+
+    } catch (err){
+      console.log(err.message);
+      res.render('teachers/index', {errorMessage:'Error in Saving',
+        as: as});
+    }
+})
 
 
 

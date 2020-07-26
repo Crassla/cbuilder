@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const tuserSchema = new mongoose.Schema({
     name: {
-        type: String,
+        type: Number,
         required: true,
         unqiue: true
       },

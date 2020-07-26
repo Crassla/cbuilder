@@ -11,3 +11,19 @@
     <a href="/">Cancel</a>
     <button type="submit">Create</button>
 </form>
+
+<form action="/teachers/asadd" method="POST">
+    <%- include('_asform_fields') %> 
+    <a href="/">Cancel</a>
+    <button type="submit">Create</button>
+</form>
+
+<div>
+    <% as.forEach(as => { %>
+        <h4><%= "Name: AS" + as.name %> 
+        <%= ", " + as.description %> 
+        <%= ", Credits: " + as.credits.toString() %>
+        <%=", Number of Weeks: " + as.weeks.toString() %> </h4>
+    <% }) %> 
+    
+</div>
