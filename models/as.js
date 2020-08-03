@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const tuserSchema = new mongoose.Schema({
+const asSchema = new mongoose.Schema({
     name: {
         type: Number,
         required: true,
@@ -20,4 +20,4 @@ const tuserSchema = new mongoose.Schema({
       }
 });
 
-module.exports = User = mongoose.model('as', tuserSchema)
+module.exports = User = mongoose.model('as', asSchema)

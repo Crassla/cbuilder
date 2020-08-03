@@ -1,8 +1,8 @@
 <div>
     <label>As</label>
-    <select name="author">
+    <select name="name" type="number">
     <% as.forEach(as => { %>
-        <option label="<%= 'AS' + as.name %>" value="<%= as.name %>">
+        <option label="<%= as.name %>" value="<%= as.name %>">
     <% }) %>
     </select>
 </div>

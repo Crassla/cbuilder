@@ -1,17 +1,33 @@
+<%= username %> Logged In 
 
-
-<form action="/students/asadd" method="POST">
+<form action="/students/asadd/<%= username %>" method="POST">
     <%- include('_asform_fields') %> 
     <a href="/">Cancel</a>
-    <button type="submit">Create</button>
+    <button type="submit">Add Standard</button>
 </form>
 
+<h1><%= username %>'s Standards</h1>
+<div>
+    <% asdata.forEach(asdata => { %>
+        <h4><%= "Name: AS" + asdata.asname %> 
+        <%=", Date Due: " + asdata.asdate %> </h4>
+    <% }) %> 
+</div>
+
+
+<form action="/students/asdelete/<%= username %>" method="POST">
+   <%- include('_asdeleteform_fields') %> 
+    <a href="/">Cancel</a>
+    <button type="submit">Delete Standard</button>
+</form>
+
+<h3>All Standards</h1>
 <div>
     <% as.forEach(as => { %>
         <h4><%= "Name: AS" + as.name %> 
-        <%= ", " + as.description %> 
-        <%= ", Credits: " + as.credits.toString() %>
-        <%=", Number of Weeks: " + as.weeks.toString() %> </h4>
+        <%= ",  " + as.description %> 
+        <%= ",  Credits:  " + as.credits.toString() %>
+        <%=",  Number of Weeks:  " + as.weeks.toString() %> </h4>
     <% }) %> 
     
 </div>

@@ -21,6 +21,10 @@ router.get('/', (req, res) => {
 })
 
 router.get('/:token/:name', auth, async (req, res) => {
+  const token = req.params.token
+  const name = req.params.name
+  res.header('token', token)
+  res.header('name', name)
   const as = await As.find({})
     try {
       res.render('teachers/index', {
@@ -244,6 +248,8 @@ router.post('/asadd', async (req, res) => {
       res.render('teachers/index', {errorMessage:'Error in Saving',
         as: as});
     }
+    var url = res.getHeader('token') + '/' + res.getHeader('username')
+
 })
 
 
