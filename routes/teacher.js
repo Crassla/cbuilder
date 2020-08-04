@@ -165,9 +165,9 @@ router.post('/signup/:name', async (req, res) => {
   var asdupe = []
   var sdupeo = []
   var asdupeo = []
-  asdata.forEach( asdata =>{
-    sdupe.push(asdata.name)
-    asdupe.push(asdata.asname)
+  asnames.forEach( asnames =>{
+    sdupe.push(asnames.name)
+    asdupe.push(asnames.asname)
   })
   var count = 0;    
   // Start variable is used to set true 
@@ -226,7 +226,7 @@ router.post('/signup/:name', async (req, res) => {
 
         if (suser) return res.render('teachers/index', {errorMessage:'Error: Email Exists',
         as: as, username: usernames, asnames: asnames,
-        suser: snames});
+        suser: snames, dupnames: sdupeo, dupas: asdupeo});
 
         let userss = await Suser.findOne({
             username
@@ -272,9 +272,9 @@ router.post('/tsignup/:name', async (req, res) => {
   var asdupe = []
   var sdupeo = []
   var asdupeo = []
-  asdata.forEach( asdata =>{
-    sdupe.push(asdata.name)
-    asdupe.push(asdata.asname)
+  asnames.forEach( asnames =>{
+    sdupe.push(asnames.name)
+    asdupe.push(asnames.asname)
   })
   var count = 0;    
   // Start variable is used to set true 
@@ -380,9 +380,9 @@ router.post('/asadd/:name', async (req, res) => {
   var asdupe = []
   var sdupeo = []
   var asdupeo = []
-  asdata.forEach( asdata =>{
-    sdupe.push(asdata.name)
-    asdupe.push(asdata.asname)
+  asnames.forEach( asnames =>{
+    sdupe.push(asnames.name)
+    asdupe.push(asnames.asname)
   })
   var count = 0;    
   // Start variable is used to set true 
