@@ -25,7 +25,7 @@ router.get('/me', (req, res) => {
 
 router.get('/me/:token/:name', auth, async (req, res) => {
   const as = await As.find({})
-  const username = req.params.name
+  const username = req.params.name.toLowerCase()
   const token = req.params.token
   const asdata = await AsNames.find({'name': username})
   res.header('username', username)
@@ -44,7 +44,7 @@ router.post('/asadd/:name', async (req, res) => {
   try {
     const as = await As.find({})
     const asname = req.body.name
-    const name = req.params.name
+    const name = req.params.name.toLowerCase()
     asdata = await AsNames.find({'name': name})
 
     var ifexists = await AsNames.find({'name': name})
@@ -176,7 +176,7 @@ router.post( '/login', async (req, res) => {
   );
 
 router.post('/asdelete/:name', async (req, res) => {
-  const name = req.params.name
+  const name = req.params.name.toLowerCase()
   const asname = req.body.name
   asdata = await AsNames.find({'name': name})
   var as = await As.find()

@@ -1,23 +1,60 @@
+<%= username %> Logged In 
 
-
-<form action="/teachers/signup" method="POST">
+<form action="/teachers/signup/<%= username %>" method="POST">
     <%- include('_form_fields') %> 
     <a href="/">Cancel</a>
     <button type="submit">Create</button>
 </form>
 
-<form action="/teachers/tsignup" method="POST">
+<form action="/teachers/tsignup/<%= username %>" method="POST">
     <%- include('_tform_fields') %> 
     <a href="/">Cancel</a>
     <button type="submit">Create</button>
 </form>
 
-<form action="/teachers/asadd" method="POST">
+<form action="/teachers/asadd/<%= username %>" method="POST">
     <%- include('_asform_fields') %> 
     <a href="/">Cancel</a>
     <button type="submit">Create</button>
 </form>
 
+<%function toTitleCase( str ) { %>
+    <%return str.split(/\s+/).map( s => s.charAt( 0 ).toUpperCase() + s.substring(1).toLowerCase() ).join( " " );%>
+<%  } %>
+
+
+<h3>Student Standards</h3>
+<div>
+    <% asnames.forEach(asnames => { %>
+        <b><%= toTitleCase(asnames.name) + ":" %> <br></b>
+        <%= "As:" + asnames.asname %>
+        <%=", Due Date: " + asnames.asdate %> </h4> <br>
+    <% }) %> 
+    
+</div><p></p>
+<h3>Add A Students Standard</h3>
+<form action="/teachers/studentasadd/<%= username %>" method="POST">
+    <%- include('_asaddform_fields') %> 
+    <a href="/">Cancel</a>
+    <button type="submit">Create</button>
+</form>
+
+<h3>Delete A Students Standard</h3>
+<form action="/teachers/asdelete/<%= username %>" method="POST">
+    <%- include('_asdeleteform_fields') %> 
+    <a href="/">Cancel</a>
+    <button type="submit">Delete</button>
+</form>
+
+<h3>Update a Due Date</h3>
+<form action="/teachers/asdate/<%= username %>" method="POST">
+    <%- include('_asadatesform_fields') %> 
+    <a href="/">Cancel</a>
+    <button type="submit">Update</button>
+</form>
+
+<p></p>
+<h3>All Standards</h3>
 <div>
     <% as.forEach(as => { %>
         <h4><%= "Name: AS" + as.name %> 

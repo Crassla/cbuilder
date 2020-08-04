@@ -1,4 +1,9 @@
-<%= username %> Logged In 
+<%function toTitleCase( str ) { %>
+    <%return str.split(/\s+/).map( s => s.charAt( 0 ).toUpperCase() + s.substring(1).toLowerCase() ).join( " " );%>
+<%  } %>
+
+
+<%= toTitleCase(username) %> Logged In 
 
 <form action="/students/asadd/<%= username %>" method="POST">
     <%- include('_asform_fields') %> 
@@ -6,7 +11,7 @@
     <button type="submit">Add Standard</button>
 </form>
 
-<h1><%= username %>'s Standards</h1>
+<h1><%= toTitleCase(username) %>'s Standards</h1>
 <div>
     <% asdata.forEach(asdata => { %>
         <h4><%= "Name: AS" + asdata.asname %> 

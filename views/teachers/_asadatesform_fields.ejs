@@ -1,0 +1,26 @@
+<%function toTitleCase( str ) { %>
+    <%return str.split(/\s+/).map( s => s.charAt( 0 ).toUpperCase() + s.substring(1).toLowerCase() ).join( " " );%>
+<%  } %>
+
+<div>
+    <label>Students Name</label>
+    <select name="name" type="text">
+    <% for (i = 0; i < dupnames.length; i++) {%>
+        <option label="<%= toTitleCase(dupnames[i]) %>" value="<%= dupnames[i] %>">
+    <% } %>
+    </select>
+</div>
+
+<div>
+    <label>As Name</label>
+    <select name="asname" type="number">
+    <% for (i = 0; i < dupas.length; i++) {%>
+        <option label="<%= dupas[i] %>" value="<%= dupas[i] %>">
+    <% } %>
+    </select>
+</div>
+
+<div>
+    <label>New Due Date</label>
+    <input name="date" type="date" required>
+</div>

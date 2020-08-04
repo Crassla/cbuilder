@@ -1,0 +1,22 @@
+
+<%function toTitleCase( str ) { %>
+    <%return str.split(/\s+/).map( s => s.charAt( 0 ).toUpperCase() + s.substring(1).toLowerCase() ).join( " " );%>
+<%  } %>
+
+<div>
+    <label>Students Name</label>
+    <select name="name" type="number">
+    <% suser.forEach(suser => { %>
+        <option label="<%= toTitleCase(suser.username) %>" value="<%= suser.username %>">
+    <% }) %>
+    </select>
+</div>
+
+<div>
+    <label>As Name</label>
+    <select name="asname" type="number">
+    <% as.forEach(as => { %>
+        <option label="<%= as.name %>" value="<%= as.name %>">
+    <% }) %>
+    </select>
+</div>
