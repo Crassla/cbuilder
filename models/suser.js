@@ -1,4 +1,6 @@
-const mongoose = require('mongoose')
+//This collects the username password and email of the students which are used to login
+//The email data can later be used to have an automatic response when succesfully added 
+const mongoose = require('mongoose');
 
 const suserSchema = mongoose.Schema({
     username: {
@@ -20,8 +22,8 @@ const suserSchema = mongoose.Schema({
       type: Date,
       default: Date.now()
     }
-  });
+});
   
   
 
-module.exports = User = mongoose.model('users', suserSchema)
+module.exports = User = mongoose.model('users', suserSchema);

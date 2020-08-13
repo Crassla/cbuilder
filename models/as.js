@@ -1,4 +1,6 @@
-const mongoose = require('mongoose')
+// This is the schema for the collection as
+// It collects the Acheivement Standard name, description, number of credits and number of weeks that it would take to complete/
+const mongoose = require('mongoose');
 
 const asSchema = new mongoose.Schema({
     name: {
@@ -20,4 +22,4 @@ const asSchema = new mongoose.Schema({
       }
 });
 
-module.exports = User = mongoose.model('as', asSchema)
+module.exports = User = mongoose.model('as', asSchema);
