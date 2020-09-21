@@ -3,6 +3,10 @@
 const mongoose = require('mongoose');
 
 const asnameSchema = new mongoose.Schema({
+  year_level:{
+
+  },
+
   name: {
       type: String,
       required: true

@@ -25,7 +25,7 @@ router.get('/', (req, res) => {
 
 //Redirects the user to the /me/:token/:name to ensure that the user cannot have an undefined name or token
 router.get('/me', (req, res) => {
-  res.redirect('/me/error/error');
+  res.redirect('     me/error/error');
 });
 
 //When the users trys to login this code runs and checks if they are authenticated

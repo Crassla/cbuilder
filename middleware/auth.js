@@ -17,6 +17,6 @@ module.exports = function(req, res, next) {
   } catch (e) {
     console.error(e);
     // If the token is invalid or expired it returns an error and renders the home page
-    res.render('index',{  errorMessage: "Error: User Invalid" });
+    res.render('index',{  errorMessage: "Error: User Invalid!" });
   }
 };
