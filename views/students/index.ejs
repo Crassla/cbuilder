@@ -15,7 +15,7 @@
 <div>
     <% asdata.forEach(asdata => { %>
         <h4><%= "Name: AS" + asdata.asname %> 
-        <%=", Date Due: " + asdata.asdate %> </h4>
+        <%=", Date Due: " + asdata.asdate.split('T') %> </h4>
     <% }) %> 
 </div>
 
@@ -25,16 +25,9 @@
     <a href="/">Cancel</a>
     <button type="submit">Delete Standard</button>
 </form>
-
-<h3>All Standards</h1>
-<div>
-    <% as.forEach(as => { %>
-        <h4><%= "Name: AS" + as.name %> 
-        <%= ",  " + as.description %> 
-        <%= ",  Credits:  " + as.credits.toString() %>
-        <%=",  Number of Weeks:  " + as.weeks.toString() %> </h4>
-    <% }) %> 
-    
-</div>
+<br>
+<form action="/students/asall/<% username %>" method="GET">
+    <button type="submit">See Standards</button>
+</form>
 
 

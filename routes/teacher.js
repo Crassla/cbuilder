@@ -23,6 +23,18 @@ router.get('/', (req, res) => {
   res.redirect('/teachers/123/123');
 });
 
+router.get('/asall/:name', async (req, res) => {
+  try {
+    const as = await As.find({});
+    res.render('allas/index', {
+      as: as
+    })
+  } catch(e) {
+    res.redirect('/')
+    console.log(e)
+  }
+})
+
 //when the user logs in it authenticats them then renders the homepage for the teachers
 router.get('/:token/:name', auth, async (req, res) => {
   //adds all of the needed databases and varibales

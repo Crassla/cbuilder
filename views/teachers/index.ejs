@@ -2,19 +2,16 @@
 
 <form action="/teachers/signup/<%= username %>" method="POST">
     <%- include('_form_fields') %> 
-    <a href="/">Cancel</a>
     <button type="submit">Create</button>
 </form>
 
 <form action="/teachers/tsignup/<%= username %>" method="POST">
     <%- include('_tform_fields') %> 
-    <a href="/">Cancel</a>
     <button type="submit">Create</button>
 </form>
 
 <form action="/teachers/asadd/<%= username %>" method="POST">
     <%- include('_asform_fields') %> 
-    <a href="/">Cancel</a>
     <button type="submit">Create</button>
 </form>
 
@@ -25,42 +22,49 @@
 
 <h3>Student Standards</h3>
 <div>
+    <% d = [] %> 
     <% asnames.forEach(asnames => { %>
-        <b><%= toTitleCase(asnames.name) + ":" %> <br></b>
-        <%= "As:" + asnames.asname %>
-        <%=", Due Date: " + asnames.asdate %> </h4> <br>
+        <% if(d.includes(asnames.name) == false ){ %> 
+            <b><%= toTitleCase(asnames.name) + ":" %> <br></b>
+            <% d.push(asnames.name) %> 
+            <ul>
+                <li><%= "As:" + asnames.asname %>
+                <% x = asnames.asdate %> 
+                <% y = x.toString() %> 
+                <% x = y.split('GMT')[0] %> 
+               <%=" Due Date: " + x %> </h4> <br></li>
+            </ul>
+        <% } else { %> 
+            <ul>
+                <li><%= "As:" + asnames.asname %>
+                <% x = asnames.asdate %> 
+                <% y = x.toString() %> 
+                <% x = y.split('GMT')[0] %> 
+                <%=" Due Date: " + x %> </h4> <br></li>
+            </ul>
+        <% } %> 
     <% }) %> 
     
 </div><p></p>
-<h3>Add A Students Standard</h3>
+<h3><b>Add A Students Standard</b></h3>
 <form action="/teachers/studentasadd/<%= username %>" method="POST">
     <%- include('_asaddform_fields') %> 
-    <a href="/">Cancel</a>
     <button type="submit">Create</button>
 </form>
 
-<h3>Delete A Students Standard</h3>
+<h3><b>Delete A Students Standard</b></h3>
 <form action="/teachers/asdelete/<%= username %>" method="POST">
     <%- include('_asdeleteform_fields') %> 
-    <a href="/">Cancel</a>
     <button type="submit">Delete</button>
 </form>
 
-<h3>Update a Due Date</h3>
+<h3><b>Update a Due Date</b></h3>
 <form action="/teachers/asdate/<%= username %>" method="POST">
     <%- include('_asadatesform_fields') %> 
-    <a href="/">Cancel</a>
     <button type="submit">Update</button>
 </form>
 
 <p></p>
-<h3>All Standards</h3>
-<div>
-    <% as.forEach(as => { %>
-        <h4><%= "Name: AS" + as.name %> 
-        <%= ", " + as.description %> 
-        <%= ", Credits: " + as.credits.toString() %>
-        <%=", Number of Weeks: " + as.weeks.toString() %> </h4>
-    <% }) %> 
-    
-</div>
+<form action="/teachers/asall/<%= username %>" method="GET">
+    <button type="submit">See Standards</button>
+</form>
