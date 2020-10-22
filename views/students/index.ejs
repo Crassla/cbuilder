@@ -3,20 +3,27 @@
 <%  } %>
 
 
-<%= toTitleCase(username) %> Logged In 
+<h3><%= toTitleCase(username) %> Logged In </h3>
+
+<h3><b>Add a Standard</b></h3>
 
 <form action="/students/asadd/<%= username %>" method="POST">
     <%- include('_asform_fields') %> 
     <a href="/">Cancel</a>
     <button type="submit">Add Standard</button>
-</form>
 
-<h1><%= toTitleCase(username) %>'s Standards</h1>
+
+<h2><%= toTitleCase(username) %>'s Standards</h2>
 <div>
-    <% asdata.forEach(asdata => { %>
-        <h4><%= "Name: AS" + asdata.asname %> 
-        <%=", Date Due: " + asdata.asdate.split('T') %> </h4>
-    <% }) %> 
+    <ul>
+        <% asdata.forEach(asdata => { %>
+        <li><%= "AS" + asdata.asname %> 
+        <% x = asdata.asdate %> 
+        <% y = x.toString() %> 
+        <% x = y.split('GMT')[0] %> 
+        <%=" Due Date: " + x %></li><p>
+        <% }) %> 
+    </ul>
 </div>
 
 
