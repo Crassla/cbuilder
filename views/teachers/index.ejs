@@ -31,7 +31,7 @@
                 <li><%= "As:" + asnames.asname %>
                 <% x = asnames.asdate %> 
                 <% y = x.toString() %> 
-                <% x = y.split('GMT')[0] %> 
+                <% x = y.slice(0, 16) + "22:00:00" %> 
                <%=" Due Date: " + x %> </h4> <br></li>
             </ul>
         <% } else { %> 
@@ -39,7 +39,7 @@
                 <li><%= "As:" + asnames.asname %>
                 <% x = asnames.asdate %> 
                 <% y = x.toString() %> 
-                <% x = y.split('GMT')[0] %> 
+                <% x = y.slice(0, 16) + "22:00:00" %> 
                 <%=" Due Date: " + x %> </h4> <br></li>
             </ul>
         <% } %> 

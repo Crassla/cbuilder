@@ -28,6 +28,18 @@ router.get('/me', (req, res) => {
   res.redirect('     me/error/error');
 });
 
+router.get('/asall', async (req, res) => {
+  try {
+    const as = await As.find({});
+    res.render('allas/index', {
+      as: as
+    })
+  } catch(e) {
+    res.redirect('/')
+    console.log(e)
+  }
+})
+
 //When the users trys to login this code runs and checks if they are authenticated
 router.get('/me/:token/:name', auth, async (req, res) => {
   var as = await As.find({});
