@@ -19,7 +19,7 @@
         <li><%= "AS" + asdata.asname %> 
         <% x = asdata.asdate %> 
         <% y = x.toString() %> 
-        <% x = y.split('GMT')[0] %> 
+        <% x = y.slice(0, 16) + "22:00:00" %> 
         <%=" Due Date: " + x %></li><p>
         <% }) %> 
     </ul>
