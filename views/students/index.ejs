@@ -10,7 +10,7 @@
 <form action="/students/asadd/<%= username %>" method="POST">
     <%- include('_asform_fields') %> 
     <button type="submit">Add Standard</button>
-
+</form>
 
 <h2><%= toTitleCase(username) %>'s Standards</h2>
 <div>
@@ -25,7 +25,13 @@
     </ul>
 </div>
 
+<form action="/students/asdelete/<%= username %>" method="POST">
+    <%- include('_asdeleteform_fields') %> 
+    <button type="submit">Delete</button>
+</form>
+
 <br>
+
 <form action="/students/asall/<% username %>" method="GET">
     <button type="submit">See Standards</button>
 </form>

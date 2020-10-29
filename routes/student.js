@@ -63,7 +63,7 @@ router.get('/me/:token/:name', auth, async (req, res) => {
 //This code runs when a student wants to add an ascheivement standard
 router.post('/asadd/:name', async (req, res) => {
   try {
-    const as = await As.find({})
+    var as = await As.find()
     const asname = req.body.asname
     const name = req.params.name
     asdata = await AsNames.find({'name': name})
@@ -114,6 +114,7 @@ router.post('/asadd/:name', async (req, res) => {
     })
 
     await asnames.save()
+    var asdata = await AsNames.find({'name': name})
 
     res.render('students/index',{
       successMessage: 'As succesfully added',

@@ -1,0 +1,8 @@
+<div>
+    <label>As Name</label>
+    <select name="asname" type="number">
+    <% asdata.forEach(asdata => { %>
+        <option label="<%= asdata.asname %>" value="<%= asdata.asname %>">
+    <% }) %>
+    </select>
+</div>
