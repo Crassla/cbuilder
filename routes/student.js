@@ -11,7 +11,6 @@ const auth = require('../middleware/auth');
 const As = require('../models/as');
 const AsNames = require('../models/asnames');
 const { isNullOrUndefined } = require('mongoose/lib/utils');
-const { exists } = require('../models/asnames');
 
 //When the user wants to go to the login page
 router.get('/login', (req, res) => {
@@ -64,71 +63,70 @@ router.get('/me/:token/:name', auth, async (req, res) => {
 //This code runs when a student wants to add an ascheivement standard
 router.post('/asadd/:name', async (req, res) => {
   try {
-    //it finds all of the required data from the specified collections
-    var as = await As.find({});
-    const asname = req.body.name;
-    const name = req.params.name.toLowerCase();
-    asdata = await AsNames.find({'name': name});
+    const as = await As.find({})
+    const asname = req.body.asname
+    const name = req.params.name
+    asdata = await AsNames.find({'name': name})
 
-    //This code checks if the student has already added the acheievement standard and if they have it returns an error
-    var ifexists = await AsNames.find({'name': name});
-    var exists = [];
+    var ifexists = await AsNames.find({'name': name})
+    var exists = []
     ifexists.forEach( ifexists =>{
-      exists.push(ifexists.asname);
-    });
-    number = Number(asname);
-    var test = (exists.includes(number));
+      exists.push(ifexists.asname)
+    })
+
+    number = Number(asname)
+
+    var test = (exists.includes(number))
+
     if (test == true) return res.render('students/index',{
       errorMessage: 'Error: As already added',
       username: name,
       as: as,
       asdata: asdata
-    });
-    //if the student hasn't specified an as in the dropdown box this runs
+    })
+
     if (!asname) return res.render('students/index',{
       errorMessage: 'Error: As does not exist. (I have no idea how you managed to get this error, but if you did, good work!)',
       username: name,
       as: as,
       asdata: asdata
-    });
-    
-    //this code adds the number of weeks the acheievement standard takes to complete to todays date
-    var asnew = await (await As.find({'name': asname}, {'weeks': 1, '_id': 0}));
-    var asdates = [];
+    })
+
+    var asnew = await (await As.find({'name': asname}, {'weeks': 1, '_id': 0}))
+    var asdates = []
     asnew.forEach( asnew =>{
-      asdates.push(asnew.weeks * 7);
-    });
+      asdates.push(asnew.weeks * 7)
+    })
+
     Date.prototype.addDays = function (days) {
       let date = new Date(this.valueOf());
       date.setDate(date.getDate() + days);
       return date;
-    };
-    let date = new Date();
-    asdate = date.addDays(asdates[0]);
+    }
 
-    //creates a new variable containing the information I want to add to the database
+    let date = new Date();
+    asdate = date.addDays(asdates[0])
+
     var asnames = new AsNames({
       name,
       asname,
       asdate
-    });
-    //saves it to the database
-    await asnames.save();
-    var asdata = await AsNames.find({'name': name});
-    //gives the user a message that it has been successfully added.
+    })
+
+    await asnames.save()
+
     res.render('students/index',{
       successMessage: 'As succesfully added',
       username: name,
       as: as,
       asdata: asdata
-    });
+    })
 
 
   } catch (e){
-    //if there is an error the error is logged and it redirects to the home page
     console.error(e);
-    res.redirect('/');
-  }
+        res.redirect('/')
+}
 });
 
 //this runs when the student wants to login
@@ -200,7 +198,7 @@ router.post( '/login', async (req, res) => {
 router.post('/asdelete/:name', async (req, res) => {
   //it gets all of the information it needs
   const name = req.params.name.toLowerCase();
-  const asname = req.body.name;
+  const asname = req.body.asname;
   var asdata = await AsNames.find({'name': name});
   var as = await As.find();
   //checks if the student has selected an acheievment standard from the dropdownlist and if they haven't returns an error message

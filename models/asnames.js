@@ -3,9 +3,6 @@
 const mongoose = require('mongoose');
 
 const asnameSchema = new mongoose.Schema({
-  year_level:{
-
-  },
 
   name: {
       type: String,
@@ -14,7 +11,7 @@ const asnameSchema = new mongoose.Schema({
 
   asname: {
     type: Number,
-    required: true
+    
   },
 
   asdate: {
