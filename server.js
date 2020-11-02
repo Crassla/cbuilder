@@ -33,6 +33,7 @@ app.use(express.urlencoded({extended: false}));
 //sets up mongoose and specifies where the database will be 
 //if it is in production it will be local, if it is not it will be in the cloud. 
 const mongoose = require('mongoose');
+const { response } = require('express');
 mongoose.connect(process.env.DATABASE_URL, { 
     useNewUrlParser: true});
 const db = mongoose.connection;
@@ -43,6 +44,12 @@ db.once('open', () => console.log('Connected to Database'));
 app.use('/', indexRouter);
 app.use('/students', studentRouter);
 app.use('/teachers', teacherRouter);
+
+//
+app.use(function(req, res, next){
+    res.status(404);
+    res.redirect('/');
+});
 
 //listens on either the port whatever is hosting it specifies or locally on port 3000
 app.listen(process.env.PORT || 3000);
